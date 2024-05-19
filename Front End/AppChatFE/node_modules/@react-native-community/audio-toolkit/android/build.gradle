@@ -1,0 +1,39 @@
+buildscript {
+    repositories {
+        google()
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.2.1'
+    }
+}
+
+def getExtOrDefault(name, fallback) {
+    return rootProject.ext.has(name) ? rootProject.ext.get(name) : fallback
+}
+
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion getExtOrDefault('compileSdkVersion', 28)
+    buildToolsVersion getExtOrDefault('buildToolsVersion', "28.0.3")
+
+    defaultConfig {
+        minSdkVersion 19
+        targetSdkVersion getExtOrDefault('targetSdkVersion', 28)
+    }
+    lintOptions{
+        abortOnError false
+    }
+}
+
+repositories {
+    google()
+    jcenter()
+    mavenCentral()
+}
+
+dependencies {
+    implementation "com.facebook.react:react-native:+"  // From node_modules
+}
